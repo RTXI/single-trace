@@ -2,13 +2,13 @@
  * Record a single trace and nothing more
  */
 
-#include <simple-trace.h>
+#include <single-trace.h>
 #include <iostream>
      
 #define EPS 1e-9
 
 extern "C" Plugin::Object *createRTXIPlugin(void) {
-    return new SimpleTrace();
+    return new SingleTrace();
 }
 
 static DefaultGUIModel::variable_t vars[] = {
@@ -35,36 +35,34 @@ static DefaultGUIModel::variable_t vars[] = {
     {
         "File Prefix",
         "",
-        DefaultGUIModel::PARAMETER,
+        DefaultGUIModel::COMMENT,
     },
     {
         "File Info",
         "",
-        DefaultGUIModel::PARAMETER,
+        DefaultGUIModel::COMMENT,
     },
 };
 
 static size_t num_vars = sizeof(vars)/sizeof(DefaultGUIModel::variable_t);
 
-SimpleTrace::SimpleTrace(void)
-    : DefaultGUIModel("SimpleTrace",::vars,::num_vars), dt(RT::System::getInstance()->getPeriod()*1e-6),
+SingleTrace::SingleTrace(void)
+    : DefaultGUIModel("SingleTrace",::vars,::num_vars), dt(RT::System::getInstance()->getPeriod()*1e-6),
     len(1.0),
-    acquire(0), cellnum(1), prefix("SimpleTrace"), info("n/a") {
+    acquire(0), cellnum(1), prefix("SingleTrace"), info("n/a") {
 
 
     // clear temp data vector
     newdata.clear();
 
+    DefaultGUIModel::createGUI(vars, num_vars);
     update(INIT);
     refresh();
 }
 
+SingleTrace::~SingleTrace(void) {}
 
-
-
-SimpleTrace::~SimpleTrace(void) {}
-
-void SimpleTrace::execute(void) {
+void SingleTrace::execute(void) {
 
     // do nothing more than save a trace
     V = input(0);
@@ -93,9 +91,7 @@ void SimpleTrace::execute(void) {
     }
 }
 
-
-
-void SimpleTrace::update(DefaultGUIModel::update_flags_t flag) 
+void SingleTrace::update(DefaultGUIModel::update_flags_t flag) 
 {
 
     switch(flag) {
@@ -104,8 +100,8 @@ void SimpleTrace::update(DefaultGUIModel::update_flags_t flag)
             
             setParameter("Acquire?",acquire);
             setParameter("Cell (#)",cellnum);
-            setParameter("File Prefix", prefix);
-            setParameter("File Info", info);
+            setComment("File Prefix", QString::fromStdString(prefix));
+            setParameter("File Info", QString::fromStdString(info));
             
             break;
         case MODIFY:
@@ -113,8 +109,8 @@ void SimpleTrace::update(DefaultGUIModel::update_flags_t flag)
 
             acquire = getParameter("Acquire?").toInt();
             cellnum = getParameter("Cell (#)").toInt();
-            prefix = getParameter("File Prefix").data();
-            info = getParameter("File Info").data();
+            prefix = getParameter("File Prefix").toStdString();//data();
+            info = getParameter("File Info").toStdString();//data();
 
             data.newcell(cellnum);
             data.resetbuffer();
@@ -135,6 +131,3 @@ void SimpleTrace::update(DefaultGUIModel::update_flags_t flag)
         refresh();
     }
 }
-
-
-

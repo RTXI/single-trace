@@ -1,9 +1,9 @@
-PLUGIN_NAME = simple_trace
+PLUGIN_NAME = single_trace
 
-HEADERS = simple-trace.h
+HEADERS = single-trace.h
 
-SOURCES = simple-trace.cpp\
-	moc_simple-trace.cpp
+SOURCES = single-trace.cpp\
+	moc_single-trace.cpp
 
 LIBS = 
 

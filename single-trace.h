@@ -6,13 +6,13 @@
 #include <string>
 #include <DataLogger.cpp>
 
-class SimpleTrace : public DefaultGUIModel
+class SingleTrace : public DefaultGUIModel
 {
 
 public:
 
-    SimpleTrace(void);
-    virtual ~SimpleTrace(void);
+    SingleTrace(void);
+    virtual ~SingleTrace(void);
     virtual void execute(void);
 
 protected:
