@@ -1,7 +1,7 @@
-###Single Trace
+###Single Trace 
 
-**Requirements:** None
-**Limitations:** None
+**Requirements:** None  
+**Limitations:** None  
 
 ![Single Trace GUI](single-trace.png)
 
