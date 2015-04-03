@@ -3,7 +3,7 @@ PLUGIN_NAME = single_trace
 HEADERS = single-trace.h
 
 SOURCES = single-trace.cpp\
-	moc_single-trace.cpp
+          moc_single-trace.cpp
 
 LIBS = 
 

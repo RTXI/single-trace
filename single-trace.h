@@ -1,4 +1,4 @@
-/**
+/*
  * Record a Single trace
  */
 
@@ -6,30 +6,26 @@
 #include <string>
 #include <DataLogger.cpp>
 
-class SingleTrace : public DefaultGUIModel
-{
+class SingleTrace : public DefaultGUIModel {
 
-public:
+	public:
+		SingleTrace(void);
+		virtual ~SingleTrace(void);
+		virtual void execute(void);
 
-    SingleTrace(void);
-    virtual ~SingleTrace(void);
-    virtual void execute(void);
+	protected:
+		virtual void update(DefaultGUIModel::update_flags_t);
 
-protected:
+	private:
+		double V, Iout;
+		double dt;
+		double len;
 
-    virtual void update(DefaultGUIModel::update_flags_t);
-
-private:
-    double V, Iout;
-    double dt;
-    double len;
-    
-    // DataLogger
-    DataLogger data;
-    int acquire;
-    double  tcnt;
-    int cellnum;
-    string prefix, info;
-    vector<double> newdata;
-    
+		// DataLogger
+		DataLogger data;
+		int acquire;
+		double  tcnt;
+		int cellnum;
+		string prefix, info;
+		vector<double> newdata;
 };
