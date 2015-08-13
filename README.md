@@ -1,12 +1,12 @@
 ###Single Trace 
 
 **Requirements:** None  
-**Limitations:** None  
+**Limitations:** Deprecated - use the Sync module to record for set intervals.  
 
 ![Single Trace GUI](single-trace.png)
 
 <!--start-->
-This module records a single trace and nothing more.
+This module records a single trace and nothing more. This module will be deprecated. Use the sync module along with the data recorder to record fixed intervals. 
 <!--end-->
 
 ####Input Channels
